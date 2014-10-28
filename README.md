@@ -1,2 +1,8 @@
-data_structures_js
-==================
+##data_structures_js
+
+This repo holds data structures written in javascript.
+
+It has a doubly linked list with print statements for testing.
+
+[mit-license](http://nickmanos.mit-license.org/)
+
