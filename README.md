@@ -2,5 +2,9 @@
 
 This repo holds data structures written in javascript.
 
-It has a doubly linked list with print statements for testing.
+It contains a doubly linked list with print statements for testing.
+
+There is also a binary search tree that uses in order traversal to search for
+the presence of data within the tree. It also has functions for depth,
+size, and balance.
 
