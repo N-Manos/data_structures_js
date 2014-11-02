@@ -74,7 +74,7 @@ BinarySearchTree.prototype = {
                       current.right = node;
                       break;
                 } else {
-                      current = current.right;
+                    current = current.right;
                     }
                 } else {
                     break;
