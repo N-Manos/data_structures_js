@@ -1,75 +1,80 @@
 function BinarySearchTree() {
-    this.root = null;
+  this.root = null;
 }
 
 BinarySearchTree.prototype = {
-    constructor: BinarySearchTree,
+  constructor: BinarySearchTree,
 
     contains: function(value){
-        var found = false,
-            current = this.root
-        while(!found && current){
-            if (value < current.value){
-                current = current.left;
-            }else if (value > current.value){
-                current = current.right;
-            }else {
-                found = true;
-            }
+
+      var found = false,
+      current = this.root
+      while(!found && current){
+        if (value < current.value){
+          current = current.left;
+        }else if (value > current.value){
+          current = current.right;
+        }else {
+          found = true;
+          }
         }
         return found;
     },
 
     depth: function(){
-        var pointer1 = this.root,
-            pointer2 = this.root,
-            leftHeight = 0,
-            rightHeight = 0
-        while(pointer1){
-            pointer1 = pointer1.right;
-            rightHeight++;
-        };
-        while(pointer2){
-            pointer2 = pointer2.left;
-            leftHeight++;
-        };
-        return Math.max(rightHeight, leftHeight);
+
+      var pointer1 = this.root,
+        pointer2 = this.root,
+        leftHeight = 0,
+        rightHeight = 0
+
+      while(pointer1){
+        pointer1 = pointer1.right;
+        rightHeight++;
+      };
+      while(pointer2){
+        pointer2 = pointer2.left;
+        leftHeight++;
+      };
+      return Math.max(rightHeight, leftHeight);
     },
 
     size: function(){
 
-        var length = this.inOrder().length;
-        return length;
+      var length = this.inOrder().length;
+      return length;
     },
 
     insert: function(value){
+
         var node = {
-                value: value,
-                left: null,
-                right: null
-            },
-            current;
+          value: value,
+          left: null,
+          right: null
+          },
+
+        current;
 
         if (this.root === null){
-            this.root = node;
+          this.root = node;
         } else {
             current = this.root;
 
             while(true){
-                if(value < current.value){
-                    if(current.left === null){
-                        current.left = node;
-                        break;
-                    } else {
-                        current = current.left;
+              if(value < current.value){
+                if(current.left === null){
+                  current.left = node;
+                  break;
+                } else {
+                    current = current.left;
                     }
 
                 } else if (value > current.value){
                     if(current.right === null){
-                        current.right = node;
-                        break;
-                    } else {
-                        current = current.right;
+                      current.right = node;
+                      break;
+                } else {
+                      current = current.right;
                     }
                 } else {
                     break;
@@ -78,42 +83,104 @@ BinarySearchTree.prototype = {
         }
     },
 
+        preOrder: function(){
+
+        value = [];
+        current = this.root;
+
+        function traversing(current){
+          if (current){
+
+            value.push(current.value);
+
+            if (current.left !== null){
+              traversing(current.left);
+            }
+
+            if (current.right !== null){
+              traversing(current.right);
+            }
+          }
+        }
+        traversing(current);
+        return value;
+    },
+
+    breadthFirst: function(func){
+
+      var queue = [this.root];
+      var list = [];
+      while(queue.length!=0) {
+        var node = queue.shift();
+        list.push(node.value);
+        if (node.left) {
+          queue.push(node.left);
+        };
+        if (node.right) {
+          queue.push(node.right);
+        };
+      }
+      return list;
+    },
+
+    postOrder: function(){
+      value = [];
+      current = this.root;
+
+        function traversing(current){
+          if (current){
+
+            if (current.left !== null){
+              traversing(current.left);
+            }
+
+            if (current.right !== null){
+              traversing(current.right);
+            }
+
+            value.push(current.value);
+          }
+        }
+        traversing(current);
+        return value;
+    },
+
     inOrder: function(){
         value = [];
         current = this.root;
 
         function traversing(current){
-            if (current){
+          if (current){
 
-                if (current.left !== null){
-                    traversing(current.left);
-                }
-
-                value.push(current.value);
-
-                if (current.right !== null){
-                    traversing(current.right);
-                }
+            if (current.left !== null){
+              traversing(current.left);
             }
+
+            value.push(current.value);
+
+            if (current.right !== null){
+              traversing(current.right);
+            }
+          }
         }
         traversing(current);
         return value;
     },
 
     balance: function(){
-        var pointer1 = this.root,
-            pointer2 = this.root,
-            leftHeight = 0,
-            rightHeight = 0
-        while(pointer1){
-            pointer1 = pointer1.right;
-            rightHeight++;
-        };
-        while(pointer2){
-            pointer2 = pointer2.left;
-            leftHeight++;
-        };
-        return leftHeight - rightHeight;
+      var pointer1 = this.root,
+        pointer2 = this.root,
+        leftHeight = 0,
+        rightHeight = 0
+      while(pointer1){
+        pointer1 = pointer1.right;
+        rightHeight++;
+      };
+      while(pointer2){
+        pointer2 = pointer2.left;
+        leftHeight++;
+      };
+      return leftHeight - rightHeight;
     }
 }
 
